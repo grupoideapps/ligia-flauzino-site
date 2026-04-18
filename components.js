@@ -323,9 +323,9 @@
         <div>
             <p class="footer-col-title">Redes & Contato</p>
             <div class="footer-social">
-                <a href="https://www.instagram.com/ligiaflauzino_analista" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+                <a href="https://www.instagram.com/ligiaflauzinoo/" target="_blank" rel="noopener noreferrer" class="footer-social-link">
                     <svg class="icon" width="16" height="16"><use href="#icon-instagram"/></svg>
-                    @ligiaflauzino_analista
+                    @ligiaflauzinoo
                 </a>
                 <a href="https://youtube.com/@ligiaflauzino" target="_blank" rel="noopener noreferrer" class="footer-social-link" style="display: none;">
                     <svg class="icon" width="16" height="16"><use href="#icon-youtube"/></svg>
