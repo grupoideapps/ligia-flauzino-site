@@ -323,9 +323,9 @@
         <div>
             <p class="footer-col-title">Redes & Contato</p>
             <div class="footer-social">
-                <a href="https://instagram.com/ligiaflauzinoo" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+                <a href="https://www.instagram.com/ligiaflauzino_analista" target="_blank" rel="noopener noreferrer" class="footer-social-link">
                     <svg class="icon" width="16" height="16"><use href="#icon-instagram"/></svg>
-                    @ligiaflauzinoo
+                    @ligiaflauzino_analista
                 </a>
                 <a href="https://youtube.com/@ligiaflauzino" target="_blank" rel="noopener noreferrer" class="footer-social-link" style="display: none;">
                     <svg class="icon" width="16" height="16"><use href="#icon-youtube"/></svg>
@@ -342,7 +342,7 @@
     <div class="footer-bottom">
         <p class="footer-copyright">© 2026 Lígia Flauzino · ligiaflauzino.com.br</p>
         <p class="footer-dev">
-            Desenvolvido por <a href="https://grupoidecomunicacao.com/criacao-de-sites/" target="_blank" rel="noopener noreferrer">Grupo Ide Comunicação</a>
+            Desenvolvido por <a href="https://omentor.studio/mentoria" target="_blank" rel="noopener noreferrer">Grupo Ide Comunicação</a>
         </p>
     </div>
 </footer>`;
