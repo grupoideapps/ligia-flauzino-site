@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post — Editor</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --ui-accent:      #C5A880;
+            --ui-bg:          #f5ebe0;
+            --ui-bg-panel:    #f0e4d4;
+            --ui-field-bg:    rgba(255,255,255,0.55);
+            --ui-field-text:  #2a1f14;
+            --ui-field-border: rgba(197,168,128,0.30);
+            --ui-text:        #2a1f14;
+            --ui-text-muted:  #5D6D7E;
+            --ui-border:      rgba(197,168,128,0.2);
+            --ui-border-med:  rgba(197,168,128,0.3);
+            --ui-font-heading: 'Playfair Display', serif;
+            --ui-font-body: 'Work Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--ui-font-body);
+            background: var(--ui-bg);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto minmax(0, 1fr);
+        }
+
+        .col-left {
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-sm, 0.9rem);
+            gap: 1rem;
+            overflow: hidden;
+            border-bottom: 1px solid var(--ui-border);
+            min-height: 0;
+        }
+
+        .actions-top, .actions-bottom {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ui-accent);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            font-family: var(--ui-font-body);
+        }
+        .btn-back:hover { opacity: 1; }
+        .btn-back svg { width: 14px; height: 14px; }
+
+        .post-wrapper {
+            position: relative;
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+            cursor: zoom-in;
+            transition: box-shadow 0.2s;
+        }
+        .post-wrapper:hover { box-shadow: 0 16px 56px rgba(0,0,0,0.3); }
+
+        .post-wrapper iframe {
+            width: 1080px;
+            height: 1350px;
+            border: none;
+            display: block;
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: var(--ui-accent);
+            color: #1a1008;
+            font-family: var(--ui-font-body);
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-download:hover { filter: brightness(1.08); transform: translateY(-1px); }
+        .btn-download:active { transform: translateY(0); }
+        .btn-download svg { width: 15px; height: 15px; flex-shrink: 0; }
+        .btn-download.loading { opacity: 0.6; pointer-events: none; }
+
+        .col-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+            min-height: 0;
+            container-type: inline-size;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--ui-border);
+            background: var(--ui-bg-panel);
+            flex-shrink: 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            font-family: var(--ui-font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+            margin-bottom: -1px;
+        }
+        .tab-btn.active { color: var(--ui-accent); border-bottom-color: var(--ui-accent); }
+
+        .tab-panel {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        .tab-panel.active { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        .field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .field label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ui-accent);
+        }
+
+        .field textarea {
+            font-family: var(--ui-font-body);
+            font-size: 1rem;
+            color: var(--ui-field-text);
+            background: var(--ui-field-bg);
+            border: 1px solid var(--ui-field-border);
+            border-radius: 6px;
+            padding: 0.65rem 0.85rem;
+            resize: vertical;
+            min-height: 64px;
+            line-height: 1.6;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+        .field textarea:focus { outline: none; border-color: var(--ui-accent); }
+
+        .ia-section { display: flex; flex-direction: column; gap: 1rem; }
+        .ia-section .field textarea { min-height: 100px; }
+
+        .ia-hint {
+            font-size: 0.875rem;
+            color: var(--ui-text-muted);
+            line-height: 1.6;
+        }
+        .ia-hint a { color: var(--ui-accent); }
+
+        .btn-gerar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--ui-text);
+            color: var(--ui-accent);
+            font-family: var(--ui-font-body);
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-gerar:hover { filter: brightness(1.3); transform: translateY(-1px); }
+        .btn-gerar:active { transform: translateY(0); }
+        .btn-gerar.loading { opacity: 0.6; pointer-events: none; }
+        .btn-gerar svg { width: 15px; height: 15px; }
+
+        .ia-status {
+            font-size: 0.875rem;
+            color: var(--ui-text-muted);
+            text-align: center;
+            min-height: 1.4em;
+            line-height: 1.5;
+        }
+        .ia-status.error { color: #c0392b; }
+
+        .divider { border: none; border-top: 1px solid var(--ui-border); }
+
+        /* Sub-tabs inside IA tab */
+        .ia-subtabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--ui-border);
+            margin: -1.5rem -1.5rem 0;
+            padding: 0 1.5rem;
+            flex-shrink: 0;
+        }
+        .ia-subtab-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.65rem 1rem;
+            font-family: var(--ui-font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+            margin-bottom: -1px;
+        }
+        .ia-subtab-btn.active { color: var(--ui-accent); border-bottom-color: var(--ui-accent); }
+
+        .ia-subpanel { display: none; flex-direction: column; gap: 1rem; padding-top: 1.25rem; }
+        .ia-subpanel.active { display: flex; }
+
+        #ia-sub-legenda {
+            gap: 0.75rem;
+            min-height: 100%;
+            padding-top: 0.85rem;
+        }
+
+        #ia-sub-legenda > .field:first-child {
+            margin-bottom: 0.1rem;
+        }
+
+        #legendaStatus {
+            min-height: 1.1em;
+            margin-top: -0.1rem;
+        }
+
+        /* Legenda result */
+        .legenda-output-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 0.85rem 0.9rem 0.95rem;
+            border: 1px solid var(--ui-field-border);
+            border-radius: 10px;
+            background:
+                linear-gradient(180deg, rgba(var(--ui-accent-rgb), 0.04), transparent 42%),
+                color-mix(in srgb, var(--ui-field-bg) 94%, white);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+        .legenda-output-wrap .field {
+            flex: 1 1 auto;
+            min-height: 0;
+            gap: 0.4rem;
+        }
+        .legenda-output-wrap textarea {
+            min-height: 320px;
+            height: 100%;
+            flex: 1 1 auto;
+            resize: vertical;
+            background: rgba(255,255,255,0.28);
+        }
+
+        .btn-copiar {
+            align-self: flex-end;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--ui-accent);
+            color: #1a1008;
+            font-family: var(--ui-font-body);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+        .btn-copiar:hover { filter: brightness(1.1); }
+        .btn-copiar:disabled { opacity: 0.4; pointer-events: none; }
+        .legenda-output-wrap .btn-copiar {
+            margin-top: 0.15rem;
+        }
+
+        /* Model selector */
+        .model-company { margin-bottom: 1rem; }
+        .model-company-name {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .model-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.65rem 0.75rem;
+            border: 1px solid var(--ui-border);
+            border-radius: 6px;
+            cursor: pointer;
+            background: transparent;
+            text-align: left;
+            width: 100%;
+            font-family: var(--ui-font-body);
+            transition: border-color 0.15s, background 0.15s;
+            margin-bottom: 0.35rem;
+        }
+        .model-card:hover { border-color: var(--ui-accent); background: rgba(197,168,128,0.06); }
+        .model-card.active { border-color: var(--ui-accent); background: rgba(197,168,128,0.1); }
+        .model-card-body { flex: 1; min-width: 0; }
+        .model-card-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--ui-text);
+            margin-bottom: 0.2rem;
+        }
+        .model-card-desc {
+            font-size: 0.8rem;
+            color: var(--ui-text-muted);
+            line-height: 1.5;
+        }
+        /* Latency note shown for selected model (discreet) */
+        .model-latency-note {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            margin-top: 6px;
+            opacity: 0.95;
+        }
+        /* Empty state when no models match filters */
+        .models-empty {
+            padding: 18px;
+            border: 1px dashed var(--ui-border);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--ui-text-muted);
+            background: color-mix(in srgb, var(--ui-field-bg) 92%, white);
+        }
+        .models-empty .empty-title { font-weight:700; margin-bottom:6px; }
+        .models-empty .empty-sub { font-size:0.95rem; margin-bottom:10px; color:var(--ui-text-muted); }
+        .empty-clear-btn { padding:6px 10px; border-radius:8px; border:1px solid var(--ui-border); background:var(--ui-accent); color:#1a1008; cursor:pointer; }
+        .model-tier-badge {
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.1rem;
+        }
+        .model-tier-badge.powerful { background: rgba(197,168,128,0.2); color: var(--ui-accent); }
+        .model-tier-badge.balanced { background: rgba(93,109,126,0.15); color: var(--ui-text-muted); }
+        .model-tier-badge.fast     { background: rgba(60,160,100,0.15); color: #3a9060; }
+
+        .model-price-badge {
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .model-price-badge.free { background: rgba(76,175,80,0.12); color: #2e7d32; }
+        .model-price-badge.paid { background: rgba(0,0,0,0.04); color: var(--ui-text); }
+
+        /* Grid layout for model cards */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .model-card-company {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ui-text-muted);
+            margin-bottom: 6px;
+        }
+
+        .tab-panel::-webkit-scrollbar { width: 4px; }
+        .tab-panel::-webkit-scrollbar-track { background: transparent; }
+        .tab-panel::-webkit-scrollbar-thumb { background: var(--ui-border-med); border-radius: 2px; }
+
+        .filters-row-left,
+        .filters-row-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filters-row-right {
+            margin-left: auto;
+        }
+
+        /* Photo section */
+        .photo-section {
+            background: var(--ui-field-bg);
+            border: 1px solid var(--ui-field-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .photo-section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ui-accent);
+        }
+
+        /* Toggle switch */
+        .field--toggle { flex-direction: row; align-items: center; justify-content: space-between; }
+        .toggle-switch { position: relative; display: inline-block; width: 36px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-track {
+            position: absolute; inset: 0; border-radius: 999px;
+            background: var(--ui-field-border); cursor: pointer; transition: background .2s;
+        }
+        .toggle-switch input:checked + .toggle-track { background: var(--ui-accent); }
+        .toggle-track::after {
+            content: ''; position: absolute;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: white; top: 3px; left: 3px; transition: transform .2s;
+        }
+        .toggle-switch input:checked + .toggle-track::after { transform: translateX(16px); }
+
+        /* Sliders */
+        .photo-sliders { display: flex; flex-direction: column; gap: 0.85rem; transition: opacity .2s; }
+        .slider-val { font-weight: 400; opacity: 0.7; font-size: 0.8rem; letter-spacing: 0; text-transform: none; margin-left: 4px; }
+        .slider-hint { font-size: 0.7rem; opacity: 0.45; color: var(--ui-accent); margin-top: 2px; }
+
+        .field input[type="range"] {
+            width: 100%; height: 4px; border-radius: 2px;
+            background: var(--ui-field-border); outline: none;
+            -webkit-appearance: none; cursor: pointer;
+        }
+        .field input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: var(--ui-accent); cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0,0,0,.2);
+        }
+        .field input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px; border-radius: 50%;
+            background: var(--ui-accent); cursor: pointer; border: none;
+        }
+
+        /* Zoom modal */
+        .zoom-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at top, rgba(var(--ui-accent-rgb), 0.18), transparent 38%),
+                rgba(10,7,5,0.88);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .zoom-overlay.open { display: flex; }
+
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid var(--ui-border-med);
+            background: var(--ui-bg-panel);
+            box-shadow: 0 32px 96px rgba(0,0,0,0.42);
+            cursor: default;
+            flex-shrink: 0;
+        }
+        .zoom-container iframe {
+            width: 1080px;
+            height: 1350px;
+            border: none;
+            display: block;
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        .zoom-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--ui-bg-panel);
+            border: 1px solid var(--ui-border-med);
+            border-radius: 50%;
+            color: var(--ui-text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            line-height: 1;
+        }
+        .zoom-close:hover { background: color-mix(in srgb, var(--ui-accent) 18%, var(--ui-bg-panel)); }
+
+        /* Responsive v2 (mobile-first + container query) */
+        .tab-btn,
+        .ia-subtab-btn,
+        .btn-back,
+        .btn-download,
+        .btn-gerar,
+        .btn-copiar {
+            min-height: 44px;
+        }
+
+        .tab-btn {
+            font-size: var(--text-sm, 0.88rem);
+            padding: 0.75rem;
+        }
+
+        .ia-subtabs {
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+        }
+
+        .ia-subtab-btn {
+            flex: 0 0 auto;
+        }
+
+        .model-grid {
+            grid-template-columns: 1fr;
+        }
+
+        @container (min-width: 760px) {
+            .model-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                grid-template-columns: minmax(340px, 520px) 1fr;
+                grid-template-rows: 1fr;
+            }
+            .col-left {
+                border-bottom: 0;
+                border-right: 1px solid var(--ui-border);
+                padding: var(--space-md, 1.1rem);
+            }
+            .col-right {
+                border-left: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .col-left {
+                padding: var(--space-lg, 1.4rem);
+            }
+        }
+
+        @supports not (container-type: inline-size) {
+            @media (min-width: 1024px) {
+                .model-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="col-left">
+        <div class="actions-top">
+            <a href="index.html" class="btn-back">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 12L6 8l4-4"/>
+                </svg>
+                Todos os posts
+            </a>
+        </div>
+
+        <!-- util-model-filter removed per request (filter remains in IA panel) -->
+
+        <div class="post-wrapper" id="postWrapper">
+            <iframe id="postFrame" scrolling="no"></iframe>
+        </div>
+
+        <div class="actions-bottom">
+            <button class="btn-download" id="btnDownload">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
+                </svg>
+                Baixar PNG
+            </button>
+        </div>
+    </div>
+
+    <div class="col-right">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="editar">Editar</button>
+            <button class="tab-btn" data-tab="ia">IA</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-editar"></div>
+
+        <div class="tab-panel" id="tab-ia">
+            <div class="ia-subtabs">
+                <button class="ia-subtab-btn active" data-subtab="editar-post">Editar post</button>
+                <button class="ia-subtab-btn" data-subtab="legenda">Legenda</button>
+                <button class="ia-subtab-btn" data-subtab="modelo">Modelo de IA</button>
+            </div>
+
+            <!-- Sub-tab: Editar post (fluxo existente) -->
+            <div class="ia-subpanel active" id="ia-sub-editar-post">
+                <div class="field">
+                    <label>O que você gostaria de mudar neste post?</label>
+                    <textarea id="iaPrompt" placeholder="Ex: Reescreva o título com tom mais urgente e direto..."></textarea>
+                </div>
+                <button class="btn-gerar" id="btnGerar">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 8h12M10 4l4 4-4 4"/>
+                    </svg>
+                    Gerar com IA
+                </button>
+                <div class="ia-status" id="iaStatus"></div>
+            </div>
+
+            <!-- Sub-tab: Legenda -->
+            <div class="ia-subpanel" id="ia-sub-legenda">
+                <div class="field">
+                    <label>Escreva como você deseja que a legenda seja.</label>
+                    <textarea id="legendaDirecao" rows="2" placeholder="Ex: descreva o tom, público-alvo e pontos-chave a incluir"></textarea>
+                </div>
+                <button class="btn-gerar" id="btnGerarLegenda">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 8h12M10 4l4 4-4 4"/>
+                    </svg>
+                    Gerar legenda
+                </button>
+                <div class="ia-status" id="legendaStatus"></div>
+                <div class="legenda-output-wrap" id="legendaResultField" style="display:none;">
+                    <div class="field">
+                        <label>Legenda gerada</label>
+                        <textarea id="legendaOutput"></textarea>
+                    </div>
+                    <button class="btn-copiar" id="btnCopiarLegenda">Copiar e salvar</button>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Modelo de IA -->
+            <div class="ia-subpanel" id="ia-sub-modelo">
+                <style>
+                    .filters-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:8px 0 14px; }
+                    .filter-label { font-size:0.85rem; color:var(--ui-text-muted); margin-right:6px; }
+                    .filter-group { display:flex; gap:6px; align-items:center; }
+                    .filter-btn {
+                        padding:6px 10px; border-radius:8px; border:1px solid var(--ui-border); background:var(--ui-field-bg); color:var(--ui-field-text); font-size:0.85rem; cursor:pointer;
+                        transition: background .12s, border-color .12s, color .12s;
+                    }
+                    .filter-btn.active { background: var(--ui-accent); color: #1a1008; border-color: color-mix(in srgb, var(--ui-accent) 60%, transparent); }
+                    .clear-filters-btn { padding:6px 10px; border-radius:8px; border:1px dashed var(--ui-border); background:transparent; color:var(--ui-text-muted); cursor:pointer; }
+                </style>
+
+                <div class="filters-row">
+                    <div class="filters-row-left">
+                        <span class="filter-label">Custo:</span>
+                        <div class="filter-group" data-filter-type="cost">
+                            <button class="filter-btn" data-filter-type="cost" data-filter-value="all">Todos</button>
+                            <button class="filter-btn" data-filter-type="cost" data-filter-value="free">Grátis</button>
+                            <button class="filter-btn" data-filter-type="cost" data-filter-value="paid">Pagos</button>
+                        </div>
+                    </div>
+
+                    <div class="filters-row-left">
+                        <span class="filter-label">Nível:</span>
+                        <div class="filter-group" data-filter-type="tier">
+                            <button class="filter-btn" data-filter-type="tier" data-filter-value="all">Todos</button>
+                            <button class="filter-btn" data-filter-type="tier" data-filter-value="fast">Rápido</button>
+                            <button class="filter-btn" data-filter-type="tier" data-filter-value="balanced">Equilibrado</button>
+                            <button class="filter-btn" data-filter-type="tier" data-filter-value="powerful">Poderoso</button>
+                        </div>
+                    </div>
+
+                    <!-- Velocidade filter removed per request -->
+
+                    <div class="filters-row-right">
+                        <button id="clearFiltersBtn" class="clear-filters-btn">Limpar filtros</button>
+                    </div>
+                </div>
+                <div id="modelList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zoom modal -->
+    <div class="zoom-overlay" id="zoomOverlay">
+        <button class="zoom-close" id="zoomClose">&#x2715;</button>
+        <div class="zoom-container" id="zoomContainer">
+            <iframe id="zoomFrame" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <script src="config.js?v=2"></script>
+    <script src="models.js?v=2"></script>
+    <script src="viewer.js?v=2"></script>
+</body>
+</html>

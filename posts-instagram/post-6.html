@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 6 — Aurora</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: var(--c-surface);
+            --c-author-badge-text: var(--c-text-on-light);
+            --c-author-badge-muted: var(--c-text-muted);
+            position: relative;
+        }
+
+        .bg-element {
+            position: absolute;
+            top: 0; right: 0; 
+            width: 600px; height: 800px;
+            /* gradiente radial sutil usando cor da paleta, desvanece para transparente */
+            background: radial-gradient(circle at 100% 0%, rgba(var(--c-accent-rgb), 0.18) 0%, rgba(var(--c-accent-rgb), 0.05) 40%, rgba(var(--c-accent-rgb), 0) 70%);
+            border-bottom-left-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            /* mix-blend-mode: soft-light; // ativar se quiser um efeito de mescla mais sutil */
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 100px;
+            justify-content: space-between;
+        }
+
+        .content { margin-top: 100px; }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            color: var(--c-text-on-light);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 50px;
+        }
+
+        .highlight-card {
+            background: var(--c-surface-soft);
+            border: 1px solid var(--c-border-strong);
+            border-top: 4px solid var(--c-accent);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .highlight-card p {
+            font-size: var(--fs-block);
+            color: var(--c-text-primary-soft);
+            line-height: 1.6;
+        }
+
+        .highlight-card p strong {
+            color: var(--c-accent);
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 2px solid var(--c-border-strong);
+        }
+
+        /* author-badge--sm via main.css */
+        .cta-tag { padding: 10px 28px; border-radius: 999px; border: 2px solid var(--c-accent); color: var(--c-text-on-light); font-weight: 700; font-size: var(--fs-cta); background: transparent; }
+    </style>
+</head>
+<body>
+    <div class="bg-element"></div>
+    <div class="post">
+        <div class="content">
+            <h1 data-var="headline" data-var-label="Headline">Minha filha de 17 anos<br>engravidou. E eu fiz<br>uma escolha que<br>mudou nossa família.</h1>
+            <div class="highlight-card">
+                <p data-var="highlight" data-var-label="Destaque">Enquanto algumas pessoas se escandalizavam, eu aprendi na prática o que pregava: que o Deus Bondoso <strong>sonda, acolhe e restaura</strong>.</p>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Leia a história</span>
+        </div>
+    </div>
+</body>
+</html>

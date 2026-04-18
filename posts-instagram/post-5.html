@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 5 — História do André</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: linear-gradient(135deg, var(--c-bg-light) 0%, var(--c-bg-light-2) 100%);
+            --c-author-badge-text: var(--c-text-on-light);
+            --c-author-badge-muted: var(--c-text-muted);
+            position: relative;
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 100px;
+            justify-content: space-between;
+        }
+
+        .content { margin-top: 100px; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 20px;
+            background: var(--c-surface);
+            border: 1px solid var(--c-accent-30);
+            font-size: var(--fs-kicker);
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--c-text-primary-soft);
+            margin-bottom: 40px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            color: var(--c-text-on-light);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+
+        .body-text {
+            font-size: var(--fs-body);
+            color: var(--c-text-muted);
+            line-height: 1.6;
+            border-left: 4px solid var(--c-accent);
+            padding-left: 24px;
+            max-width: 800px;
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 2px solid var(--c-accent-30);
+        }
+
+        /* author-badge--sm via main.css */
+        .cta-tag { padding: 10px 28px; border-radius: 999px; border: 2px solid var(--c-accent); color: var(--c-text-on-light); font-weight: 700; font-size: var(--fs-cta); background: transparent; }
+    </style>
+</head>
+<body>
+    <div class="post">
+        <div class="content">
+            <div class="badge" data-var="top_label" data-var-label="Label do topo">Acolhimento Terapêutico</div>
+            <h1 data-var="headline" data-var-label="Headline">Como eu reagi<br>quando soube que meu<br>marido estava perdendo<br>a visão.</h1>
+            <p class="body-text" data-var="body" data-var-label="Corpo do texto">Entender que a soberania de Deus não depende de resolução para ser real — isso mudou a forma como eu vivo qualquer crise.</p>
+        </div>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Leia o relato</span>
+        </div>
+    </div>
+</body>
+</html>

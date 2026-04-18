@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 9 — CTA Final</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: var(--c-bg-light-2);
+            --c-author-badge-text: var(--c-text-on-light);
+            --c-author-badge-muted: var(--c-text-muted);
+            position: relative;
+        }
+
+        /* Círculo decorativo de fundo */
+        .bg-circle {
+            position: absolute;
+            width: 800px; height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--c-accent-12) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -52%);
+            pointer-events: none;
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 100px;
+            text-align: center;
+        }
+
+        /* Headline */
+        .headline-wrapper {
+            margin-bottom: 72px;
+        }
+
+        .kicker {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            font-size: var(--fs-kicker);
+            font-weight: 500;
+            letter-spacing: .06em;
+            color: var(--c-text-muted);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: 96px;
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--c-text-on-light);
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--c-accent);
+        }
+
+        /* Foto em círculo — via author-badge--lg de main.css */
+        .author-badge--lg {
+            margin-bottom: 64px;
+        }
+
+        /* Ícones de engajamento */
+        .engagement-icons {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            margin-bottom: 56px;
+        }
+
+        .eng-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eng-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--c-text-muted);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Texto CTA */
+        .cta-text {
+            font-size: var(--fs-body);
+            color: var(--c-text-muted);
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .cta-text strong {
+            color: var(--c-text-on-light);
+            font-weight: 600;
+        }
+
+        /* Dots de carrossel */
+        .dots {
+            display: flex;
+            gap: 10px;
+            margin-top: 52px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--c-accent-30);
+        }
+
+        .dot.active {
+            background: var(--c-accent);
+            width: 28px;
+            border-radius: 999px;
+        }
+
+        /* Bottom */
+        .bottom {
+            position: absolute;
+            bottom: 64px;
+            left: 100px; right: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 36px;
+            border-top: 1px solid var(--c-accent-25);
+        }
+
+        .logo-text {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-meta);
+            font-weight: 600;
+            color: var(--c-text-on-light);
+        }
+
+        .handle {
+            font-size: var(--fs-meta);
+            color: var(--c-text-muted);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-circle"></div>
+
+    <div class="post">
+
+        <!-- Headline -->
+        <div class="headline-wrapper">
+            <p class="kicker" data-var="kicker" data-var-label="Kicker">Curtiu esse conteúdo?</p>
+            <h1 data-var="headline" data-var-label="Headline">Me ajuda <em>interagindo</em><br>por aqui</h1>
+        </div>
+
+        <!-- Foto + autor (badge --lg) -->
+        <div class="author-badge author-badge--lg" data-badge data-badge-size="lg">
+            <div class="badge-photo-outer badge-photo-outer--lg">
+                <div class="badge-photo">
+                    <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                </div>
+            </div>
+            <div class="badge-info">
+                <span class="badge-name">Lígia Flauzino</span>
+                <span class="badge-handle">@ligiaflauzino</span>
+            </div>
+        </div>
+
+        <!-- Ícones de engajamento -->
+        <div class="engagement-icons">
+            <!-- Curtir -->
+            <div class="eng-icon">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <!-- Comentar -->
+            <div class="eng-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <!-- Compartilhar -->
+            <div class="eng-icon">
+                <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <!-- Salvar -->
+            <div class="eng-icon">
+                <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+        </div>
+
+        <!-- Texto CTA -->
+        <p class="cta-text" data-var="body" data-var-label="Corpo do texto">
+            Esse post deu um trabalhão...<br>
+            Que tal me dar uma <strong>ajudinha interagindo?</strong>
+        </p>
+
+        <!-- Dots de carrossel -->
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot active"></div>
+        </div>
+
+    </div>
+
+    <!-- Rodapé -->
+    <div class="bottom">
+        <div class="logo-text badge-name">Lígia Flauzino</div>
+        <span class="handle badge-handle">@ligiaflauzino</span>
+    </div>
+</body>
+</html>

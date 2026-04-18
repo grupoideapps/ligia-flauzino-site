@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 2 — Análise de Perfil</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: linear-gradient(155deg, var(--c-bg-dark) 0%, var(--c-bg-dark-2) 55%, var(--c-bg-dark-3) 100%);
+            --c-author-badge-text: var(--c-text-on-dark);
+            --c-author-badge-muted: var(--c-text-on-dark-70);
+            position: relative;
+        }
+
+        .glow-1 {
+            position: absolute;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--c-accent-18) 0%, transparent 70%);
+            top: 20%; left: -250px;
+            pointer-events: none;
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 88px 96px 80px;
+            justify-content: space-between;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 20px;
+            background: var(--c-accent-10);
+            border: 1px solid var(--c-accent-25);
+            font-size: var(--fs-kicker);
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--c-accent);
+            width: fit-content;
+            margin-bottom: 40px;
+        }
+
+        .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--c-text-on-dark);
+            margin-bottom: 40px;
+        }
+
+        .body-text {
+            font-size: var(--fs-body);
+            color: var(--c-text-on-dark-75);
+            line-height: 1.6;
+            max-width: 800px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: rgba(var(--c-text-on-light-rgb), 0.82);
+            border: 1px solid var(--c-accent-25);
+            padding: 40px;
+            border-left: 6px solid var(--c-accent);
+            border-radius: 12px;
+        }
+
+        .card h2 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h2);
+            color: var(--c-accent);
+            margin-bottom: 16px;
+        }
+        
+        .card p {
+            font-size: var(--fs-body);
+            color: var(--c-text-on-dark-80);
+            line-height: 1.5;
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 1px solid var(--c-accent-20);
+        }
+        /* author-badge--sm via main.css */
+        .cta-tag {
+            padding: 10px 28px;
+            border-radius: 999px;
+            background: var(--c-accent);
+            color: var(--c-bg-dark);
+            font-weight: 700;
+            font-size: var(--fs-cta);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+
+    <div class="post">
+        <div class="badge" data-var="top_label" data-var-label="Label do topo">✦ Análise de Perfil</div>
+
+        <div class="content">
+            <h1 data-var="headline" data-var-label="Headline">Você sabe por que<br>repete os mesmos<br>padrões?</h1>
+            <p class="body-text" data-var="body" data-var-label="Corpo do texto">Existe um padrão no jeito que você reage, trava e se comunica. Não é falta de força de vontade. É o seu perfil comportamental.</p>
+
+            <div class="card">
+                <h2 data-var="card_title" data-var-label="Card — Título">O mapa do seu perfil</h2>
+                <p data-var="card_body" data-var-label="Card — Texto">Descubra suas travas, pontos cegos e como usar seus talentos naturais em vez de lutar contra eles.</p>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Agende sua Análise</span>
+        </div>
+    </div>
+</body>
+</html>

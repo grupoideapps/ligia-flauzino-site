@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 4 — Fique Tranquila</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: linear-gradient(155deg, var(--c-bg-dark) 0%, var(--c-bg-dark-2) 55%, var(--c-bg-dark-3) 100%);
+            --c-author-badge-text: var(--c-text-on-dark);
+            --c-author-badge-muted: var(--c-text-on-dark-70);
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 80% 20%, var(--c-accent-15) 0%, transparent 60%);
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 100px;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-top: 150px;
+        }
+
+        p.kicker {
+            font-size: var(--fs-kicker);
+            color: var(--c-accent);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            color: var(--c-text-on-dark);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+        
+        .manifesto-box {
+            background: var(--c-accent-10);
+            border-left: 4px solid var(--c-accent);
+            padding: 40px;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .manifesto-box p {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-style: italic;
+            font-size: var(--fs-block);
+            color: var(--c-text-on-dark);
+            line-height: 1.4;
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 1px solid var(--c-accent-20);
+            text-align: left;
+        }
+        /* author-badge--sm via main.css */
+        .cta-tag { padding: 10px 28px; border-radius: 999px; background: var(--c-accent); color: var(--c-bg-dark); font-weight: 700; font-size: var(--fs-cta); }
+    </style>
+</head>
+<body>
+    <div class="hero-bg"></div>
+
+    <div class="post">
+        <div class="main-content">
+            <p class="kicker" data-var="kicker" data-var-label="Kicker">O mundo pede guerra.</p>
+            <h1 data-var="headline" data-var-label="Headline">Mas Deus te diz: fique tranquila, Eu cuido de tudo.</h1>
+            <div class="manifesto-box">
+                <p data-var="manifesto" data-var-label="Manifesto">"Fique tranquila, tudo vai ficar bem, pois Deus cuida de tudo."</p>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Deslize para ler</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 8 — Padrão Oculto</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: var(--c-bg-light-2);
+            --c-author-badge-text: var(--c-text-on-light);
+            --c-author-badge-muted: var(--c-text-muted);
+            position: relative;
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 100px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .circle-bg {
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            border: 2px dashed var(--c-accent-40);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            color: var(--c-text-on-light);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlighted {
+            background: var(--c-accent-15);
+            padding: 0 16px;
+        }
+
+        .body-text {
+            font-size: var(--fs-body);
+            color: var(--c-text-muted);
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: 80px; left: 100px; right: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 2px solid var(--c-accent-30);
+        }
+
+        /* author-badge--sm via main.css */
+        .cta-tag { padding: 10px 28px; border-radius: 999px; background: var(--c-text-on-light); color: var(--c-text-on-dark); font-weight: 700; font-size: var(--fs-cta); }
+    </style>
+</head>
+<body>
+    <div class="circle-bg"></div>
+    <div class="post">
+        <h1 data-var="headline" data-var-label="Headline">O padrão <span class="highlighted">oculto</span> que faz<br>você travar nos seus<br>relacionamentos.</h1>
+        <p class="body-text" data-var="body" data-var-label="Corpo do texto">O que você não conhece em si mesma, você não pode transformar. A Análise de Perfil existe para trazer luz ao que está operando no escuro.</p>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Agende sua Análise</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 7 — 4 Perfis Bíblicos</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+        body {
+            font-family: var(--ff-body, 'Work Sans', sans-serif);
+            background: var(--c-bg-dark);
+            --c-author-badge-text: var(--c-text-on-dark);
+            --c-author-badge-muted: var(--c-text-on-dark-70);
+            position: relative;
+        }
+
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 100px;
+            justify-content: center;
+        }
+
+        h1 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h1);
+            color: var(--c-text-on-dark);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .profile-card {
+            background: rgba(var(--c-text-on-dark-rgb), 0.03);
+            border: 1px solid var(--c-accent-15);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .profile-card h3 {
+            font-family: var(--ff-heading, 'Playfair Display', serif);
+            font-size: var(--fs-h3);
+            color: var(--c-accent);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .profile-card p {
+            font-size: var(--fs-body);
+            color: var(--c-text-on-dark-75);
+            line-height: 1.5;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: 80px; left: 100px; right: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 48px;
+            border-top: 1px solid var(--c-accent-20);
+        }
+
+        /* author-badge--sm via main.css */
+        .cta-tag { padding: 10px 28px; border-radius: 999px; background: var(--c-accent); color: var(--c-bg-dark); font-weight: 700; font-size: var(--fs-cta); }
+    </style>
+</head>
+<body>
+    <div class="post">
+        <h1 data-var="headline" data-var-label="Headline">Os 4 tipos de personalidade na Bíblia — qual é o seu?</h1>
+
+        <div class="grid-2">
+            <div class="profile-card">
+                <h3 data-var="card_1_title" data-var-label="Card 1 — Título">🦁 Dominante</h3>
+                <p data-var="card_1_body" data-var-label="Card 1 — Texto"><strong>Pedro:</strong> Age primeiro, pensa depois. Liderança natural, mas pode ser impulsivo.</p>
+            </div>
+            <div class="profile-card">
+                <h3 data-var="card_2_title" data-var-label="Card 2 — Título">☀️ Influente</h3>
+                <p data-var="card_2_body" data-var-label="Card 2 — Texto"><strong>Paulo:</strong> Persuasivo, eloquente, apaixonado. Usa sua influência de forma intensa.</p>
+            </div>
+            <div class="profile-card">
+                <h3 data-var="card_3_title" data-var-label="Card 3 — Título">🕊️ Estável</h3>
+                <p data-var="card_3_body" data-var-label="Card 3 — Texto"><strong>Maria de Betânia:</strong> Presença, lealdade. Enquanto Marta corre, Maria senta aos pés de Jesus.</p>
+            </div>
+            <div class="profile-card">
+                <h3 data-var="card_4_title" data-var-label="Card 4 — Título">🔍 Analítico</h3>
+                <p data-var="card_4_body" data-var-label="Card 4 — Texto"><strong>Tomé:</strong> Precisa de evidências antes de acreditar. Profundidade de compromisso.</p>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="author-badge author-badge--sm" data-badge data-badge-size="sm">
+                <div class="badge-photo-outer badge-photo-outer--sm">
+                    <div class="badge-photo">
+                        <img src="assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" data-badge-photo />
+                    </div>
+                </div>
+                <div class="badge-info">
+                    <span class="badge-name">Lígia Flauzino</span>
+                    <span class="badge-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta-tag" data-var="cta" data-var-label="CTA">Comente sua resposta</span>
+        </div>
+    </div>
+</body>
+</html>

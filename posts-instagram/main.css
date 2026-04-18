@@ -1,0 +1,181 @@
+@import url('../../design-system/tokens/core.css');
+
+:root {
+    --c-accent: var(--ds-color-primary-gold);
+    --c-accent-rgb: 197, 168, 128;
+    --c-accent-10: rgba(197, 168, 128, 0.10);
+    --c-accent-12: rgba(197, 168, 128, 0.12);
+    --c-accent-15: rgba(197, 168, 128, 0.15);
+    --c-accent-18: rgba(197, 168, 128, 0.18);
+    --c-accent-20: rgba(197, 168, 128, 0.20);
+    --c-accent-25: rgba(197, 168, 128, 0.25);
+    --c-accent-30: rgba(197, 168, 128, 0.30);
+    --c-accent-40: rgba(197, 168, 128, 0.40);
+
+    --c-bg-dark: #0f0a08;
+    --c-bg-dark-2: #1c1005;
+    --c-bg-dark-3: #0a0804;
+    --c-bg-light: var(--ds-color-secondary-cream);
+    --c-bg-light-2: var(--ds-color-bg);
+    --c-surface: #ffffff;
+    --c-surface-soft: #fdfaf6;
+
+    --c-text-on-dark: #f5f0e8;
+    --c-text-on-dark-rgb: 245, 240, 232;
+    --c-text-on-dark-50: rgba(245, 240, 232, 0.50);
+    --c-text-on-dark-70: rgba(245, 240, 232, 0.70);
+    --c-text-on-dark-75: rgba(245, 240, 232, 0.75);
+    --c-text-on-dark-80: rgba(245, 240, 232, 0.80);
+
+    --c-text-on-light: var(--ds-color-dark);
+    --c-text-on-light-rgb: 26, 26, 26;
+    --c-text-muted: var(--ds-color-primary-slate);
+    --c-text-muted-rgb: 93, 109, 126;
+    --c-text-muted-20: rgba(93, 109, 126, 0.20);
+    --c-text-primary-soft: #333333;
+
+    --c-border-soft: rgba(197, 168, 128, 0.20);
+    --c-border-med: rgba(197, 168, 128, 0.30);
+    --c-border-strong: #E0D7D3;
+
+    --ff-heading: var(--ds-font-heading);
+    --ff-body: var(--ds-font-body);
+
+    --fs-h1: 80px;
+    --fs-h2: 42px;
+    --fs-h3: 26px;
+    --fs-kicker: 18px;
+    --fs-body: 28px;
+    --fs-meta: 20px;
+    --fs-cta: 21px;
+    --fs-block: 32px;
+    --c-author-badge-text: #1A1A1A;
+    --c-author-badge-muted: #5D6D7E;
+}
+
+/* === Author Badge === */
+.badge-photo-outer {
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Anel decorativo externo */
+.badge-photo-outer::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid var(--c-accent-40);
+    pointer-events: none;
+}
+
+/* Segundo anel — somente --lg */
+.badge-photo-outer--lg::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    border: 1px solid var(--c-accent-20);
+    pointer-events: none;
+}
+
+.badge-photo {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--c-accent);
+}
+
+.author-badge--sm .badge-photo { width: 72px; height: 72px; }
+.author-badge--lg .badge-photo { width: 300px; height: 300px; }
+
+.badge-photo-outer--sm .badge-photo { width: 72px; height: 72px; }
+.badge-photo-outer--lg .badge-photo { width: 300px; height: 300px; }
+
+.badge-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--badge-photo-x, center) var(--badge-photo-y, 30%);
+    transform: scale(var(--badge-photo-zoom, 1));
+    transform-origin: center center;
+}
+
+.author-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.author-badge--sm {
+    padding: 0;
+}
+
+.author-badge--lg {
+    flex-direction: column;
+    gap: 24px;
+}
+
+.badge-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.author-badge--lg .badge-info { text-align: center; }
+
+.badge-name {
+    font-family: var(--ff-heading, 'Playfair Display', serif);
+    font-weight: 600;
+    color: var(--c-author-badge-text);
+}
+.author-badge--sm .badge-name { font-size: var(--fs-meta); }
+.author-badge--lg .badge-name { font-size: var(--fs-h3); }
+
+.badge-handle { color: var(--c-author-badge-muted); }
+.author-badge--sm .badge-handle { font-size: calc(var(--fs-meta) * 0.85); }
+.author-badge--lg .badge-handle { font-size: var(--fs-meta); }
+
+/* Quando a badge está oculta, centraliza o elemento irmão (cta-tag) */
+.bottom.badge-hidden { justify-content: center; }
+
+/* === Responsive Foundation (mobile-first) === */
+:root {
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+
+    --space-2xs: clamp(0.25rem, 0.2rem + 0.2vw, 0.45rem);
+    --space-xs: clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 0.6rem + 0.5vw, 1rem);
+    --space-md: clamp(1rem, 0.85rem + 0.8vw, 1.5rem);
+    --space-lg: clamp(1.25rem, 1rem + 1.1vw, 2rem);
+    --space-xl: clamp(1.75rem, 1.35rem + 1.8vw, 3rem);
+
+    --text-xs: clamp(0.72rem, 0.7rem + 0.18vw, 0.82rem);
+    --text-sm: clamp(0.82rem, 0.78rem + 0.25vw, 0.95rem);
+    --text-base: clamp(0.92rem, 0.88rem + 0.32vw, 1.06rem);
+    --text-lg: clamp(1rem, 0.95rem + 0.5vw, 1.2rem);
+    --text-xl: clamp(1.25rem, 1.05rem + 1vw, 1.7rem);
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* container-query utilities */
+.cq-inline {
+    container-type: inline-size;
+}
+
+.cq-card {
+    container-name: card;
+}
