@@ -47,6 +47,7 @@
             { label: 'Análise de Perfil',  href: `${root}/servicos/analise-de-perfil.html` },
             { label: 'Mentorias',          href: `${root}/servicos/mentorias.html` },
             { label: 'Palestras',          href: `${root}/servicos/palestras.html` },
+            { label: 'NR-1 para Empresas', href: `${root}/servicos/nr-1.html` },
             { label: 'Livros',             href: `${root}/livros.html` },
         ];
 
@@ -315,6 +316,7 @@
                 <li><a href="${root}/servicos/analise-de-perfil.html">Análise de Perfil</a></li>
                 <li><a href="${root}/servicos/mentorias.html">Mentorias</a></li>
                 <li><a href="${root}/servicos/palestras.html">Palestras</a></li>
+                <li><a href="${root}/servicos/nr-1.html">NR-1 para Empresas</a></li>
                 <li><a href="${root}/livros.html">Livros</a></li>
                 <li><a href="${root}/contato.html">Contato</a></li>
             </ul>

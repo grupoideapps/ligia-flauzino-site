@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post 1 — Apresentação</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 1080px;
+            height: 1350px;
+            overflow: hidden;
+        }
+
+        :root {
+            /* Palette — inlined from main.css */
+            --c-bg:           #0f0a08;
+            --c-bg-2:         #1c1005;
+            --c-bg-3:         #0a0804;
+
+            --c-gold:         #c5a880;
+            --c-gold-10:      rgba(197,168,128,.10);
+            --c-gold-18:      rgba(197,168,128,.18);
+            --c-gold-25:      rgba(197,168,128,.25);
+            --c-gold-40:      rgba(197,168,128,.40);
+            --c-gold-60:      rgba(197,168,128,.60);
+
+            --c-text:         #f5f0e8;
+            --c-text-50:      rgba(245,240,232,.50);
+            --c-text-65:      rgba(245,240,232,.65);
+            --c-text-80:      rgba(245,240,232,.80);
+
+            /* Type */
+            --ff-serif:       'Libre Baskerville', Georgia, serif;
+            --ff-sans:        'Source Sans 3', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--c-bg);
+            font-family: var(--ff-sans);
+            position: relative;
+        }
+
+        /* ── Subtle texture overlay ── */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 900px 600px at 15% 20%, rgba(197,168,128,.06) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 800px at 90% 85%, rgba(15,10,8,.6) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Fine grain ── */
+        body::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: .5;
+        }
+
+        /* ══════════════════════════════
+           CANVAS
+        ══════════════════════════════ */
+        .post {
+            position: relative;
+            z-index: 2;
+            width: 100%; height: 100%;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 80px 88px 72px;
+            gap: 0;
+        }
+
+        /* ══════════════════════════════
+           TOP — série + label
+        ══════════════════════════════ */
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--c-gold-18);
+        }
+
+        .series-mark {
+            font-family: var(--ff-sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--c-gold-60);
+        }
+
+        .top-label {
+            font-family: var(--ff-sans);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--c-text-50);
+        }
+
+        /* ══════════════════════════════
+           BODY — composição assimétrica
+        ══════════════════════════════ */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 3px 340px;
+            gap: 0 56px;
+            align-items: start;
+            padding-top: 72px;
+            padding-bottom: 64px;
+        }
+
+        /* Coluna esquerda — headline dominante */
+        .col-main {}
+
+        .kicker {
+            font-family: var(--ff-sans);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--c-gold);
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-family: var(--ff-serif);
+            font-size: 90px;
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--c-text);
+            margin-bottom: 40px;
+            letter-spacing: -.01em;
+        }
+
+        h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--c-gold);
+        }
+
+        .body-text {
+            font-family: var(--ff-sans);
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--c-text-65);
+            max-width: 52ch;
+        }
+
+        /* Divisória vertical */
+        .divider-v {
+            width: 1px;
+            background: var(--c-gold-25);
+            align-self: stretch;
+            margin-top: 8px;
+        }
+
+        /* Coluna direita — itens com numerais romanos */
+        .col-aside {
+            padding-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .aside-label {
+            font-family: var(--ff-sans);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--c-text-50);
+            margin-bottom: 36px;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 0 16px;
+            padding-bottom: 32px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--c-gold-10);
+        }
+        .item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-numeral {
+            font-family: var(--ff-serif);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--c-gold-60);
+            padding-top: 2px;
+            line-height: 1;
+        }
+
+        .item-text {
+            font-family: var(--ff-sans);
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.55;
+            color: var(--c-text-80);
+        }
+
+        /* ══════════════════════════════
+           BOTTOM — autor + CTA
+        ══════════════════════════════ */
+        .bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 40px;
+            border-top: 1px solid var(--c-gold-18);
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .author-photo-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .author-photo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid var(--c-gold-25);
+            pointer-events: none;
+        }
+
+        .author-photo {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--c-gold-40);
+        }
+        .author-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .author-name {
+            font-family: var(--ff-serif);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--c-text);
+            letter-spacing: .01em;
+        }
+        .author-handle {
+            font-family: var(--ff-sans);
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--c-text-50);
+            letter-spacing: .04em;
+        }
+
+        .cta {
+            font-family: var(--ff-sans);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--c-bg);
+            background: var(--c-gold);
+            padding: 14px 36px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="post">
+
+        <!-- TOP -->
+        <div class="top">
+            <span class="series-mark" data-var="series_mark">Post 01</span>
+            <span class="top-label" data-var="top_label">Apresentação</span>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <!-- Left: headline + intro -->
+            <div class="col-main">
+                <p class="kicker" data-var="kicker">Muito prazer</p>
+                <h1 data-var="headline">Aqui,<br>descansamos<br>no <em>Deus<br>Bondoso</em><br>e destravamos<br>a vida.</h1>
+                <p class="body-text" data-var="body">Sou escritora e analista comportamental. Mas antes de qualquer título, sou uma mulher que aprendeu, pela dor e pela graça, que Deus cuida de tudo.</p>
+            </div>
+
+            <!-- Vertical rule -->
+            <div class="divider-v"></div>
+
+            <!-- Right: three items -->
+            <div class="col-aside">
+                <span class="aside-label">O que você encontra aqui</span>
+
+                <div class="item">
+                    <span class="item-numeral">i.</span>
+                    <span class="item-text" data-var="bullet_1">Reflexões sobre fé e comportamento que se conectam</span>
+                </div>
+                <div class="item">
+                    <span class="item-numeral">ii.</span>
+                    <span class="item-text" data-var="bullet_2">Histórias reais que mostram que você não está sozinha</span>
+                </div>
+                <div class="item">
+                    <span class="item-numeral">iii.</span>
+                    <span class="item-text" data-var="bullet_3">Análise comportamental com fundamento espiritual</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="bottom">
+            <div class="author">
+                <div class="author-photo-wrap">
+                    <div class="author-photo">
+                        <img src="https://ligiaflauzino.com.br/assets/foto-ligia-badge.jpg" alt="Lígia Flauzino" />
+                    </div>
+                </div>
+                <div class="author-info">
+                    <span class="author-name">Lígia Flauzino</span>
+                    <span class="author-handle">@ligiaflauzino</span>
+                </div>
+            </div>
+            <span class="cta" data-var="cta">Link na bio</span>
+        </div>
+
+    </div>
+</body>
+</html>

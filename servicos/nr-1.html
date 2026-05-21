@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-root="..">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NR-1 para Empresas — Mapeamento e Implementação de Riscos Psicossociais | Lígia Flauzino</title>
+    <meta name="description" content="Adeque sua empresa à nova NR-1. Diagnóstico, implementação e monitoramento dos riscos psicossociais com a Implementadora certificada Lígia Flauzino.">
+
+    <!-- Open Graph / Social Share -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NR-1 para Empresas — Mapeamento e Implementação de Riscos Psicossociais">
+    <meta property="og:description" content="Adeque sua empresa à nova NR-1. Diagnóstico, implementação e monitoramento dos riscos psicossociais com a Implementadora certificada Lígia Flauzino.">
+    <meta property="og:image" content="https://ligiaflauzino.com.br/assets/Logo%20Ligia%20Flauzino%20-%20Share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NR-1 para Empresas — Lígia Flauzino">
+    <meta name="twitter:description" content="Adeque sua empresa à nova NR-1. Diagnóstico, implementação e monitoramento dos riscos psicossociais.">
+    <meta name="twitter:image" content="https://ligiaflauzino.com.br/assets/Logo%20Ligia%20Flauzino%20-%20Share.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../website.css">
+
+    <style>
+        /* ── Layout específico da página NR-1 ─────────────────── */
+
+        /* 3 colunas com divisor dourado (slide "Quem sou eu?") */
+        .nr1-three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+        .nr1-three-col-item {
+            padding-left: 1.25rem;
+            border-left: 3px solid var(--color-primary-gold);
+        }
+        .nr1-three-col-item p { margin: 0; }
+        @media (max-width: 768px) {
+            .nr1-three-col { grid-template-columns: 1fr; gap: 1.75rem; }
+        }
+
+        /* Cards de notícias (slide "A atualização já é notícia") */
+        .nr1-news-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .nr1-news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .nr1-news-card {
+            background: #ffffff;
+            border: 1px solid rgba(93, 109, 126, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(26, 26, 26, 0.04);
+        }
+        .nr1-news-source {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-primary-slate);
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+        }
+        .nr1-news-headline {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            line-height: 1.35;
+            color: var(--color-dark);
+            font-weight: 600;
+        }
+        .nr1-news-meta {
+            margin: 0.5rem 0 0;
+            font-size: 0.8rem;
+            color: var(--color-primary-slate);
+        }
+        @media (max-width: 900px) {
+            .nr1-news-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        /* Cards de estatística (slide "Dados que comprovam") */
+        .nr1-stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        .nr1-stat-card {
+            background: #ffffff;
+            border-radius: 999px 999px 999px 999px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 18px rgba(26, 26, 26, 0.06);
+        }
+        .nr1-stat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--color-dark);
+            margin: 0 0 0.4rem;
+            font-weight: 600;
+        }
+        .nr1-stat-body {
+            margin: 0;
+            color: var(--color-primary-slate);
+            line-height: 1.55;
+            font-size: 0.98rem;
+        }
+        .nr1-stat-source {
+            margin: 0.5rem 0 0;
+            font-size: 0.72rem;
+            color: rgba(93, 109, 126, 0.75);
+            line-height: 1.5;
+        }
+
+        /* Dois cards lado a lado (slide "O que isso significa") */
+        .nr1-duo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        .nr1-duo-card {
+            position: relative;
+            background: var(--color-primary-gold);
+            color: #ffffff;
+            padding: 2.25rem 1.75rem;
+            border-radius: 18px;
+            box-shadow: 0 6px 22px rgba(197, 168, 128, 0.25);
+        }
+        .nr1-duo-card.is-success { background: var(--color-secondary-sage); box-shadow: 0 6px 22px rgba(168, 184, 168, 0.3); }
+        .nr1-duo-icon {
+            position: absolute;
+            top: -22px;
+            left: 1.5rem;
+            width: 48px;
+            height: 48px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(26, 26, 26, 0.1);
+        }
+        .nr1-duo-card p {
+            margin: 0.75rem 0 0;
+            font-weight: 600;
+            line-height: 1.45;
+            font-size: 1.05rem;
+        }
+        @media (max-width: 768px) {
+            .nr1-duo-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Bloco "Riscos para quem não se adequar" */
+        .nr1-risk-split {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            background: var(--color-secondary-cream);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .nr1-risk-left {
+            background: var(--color-primary-gold);
+            color: #ffffff;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+        }
+        .nr1-risk-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.65rem;
+        }
+        .nr1-risk-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.15;
+            margin: 0;
+            color: #ffffff;
+        }
+        .nr1-risk-right {
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .nr1-risk-item {
+            border-top: 1px solid rgba(197, 168, 128, 0.4);
+            padding-top: 1rem;
+        }
+        .nr1-risk-item:first-child { border-top: none; padding-top: 0; }
+        .nr1-risk-item strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--color-dark);
+            font-weight: 600;
+        }
+        .nr1-risk-item .nr1-risk-amount {
+            font-size: 1.55rem;
+            color: var(--color-dark);
+        }
+        .nr1-risk-source {
+            font-size: 0.72rem;
+            color: var(--color-primary-slate);
+            margin: 0.25rem 0 0;
+        }
+        @media (max-width: 768px) {
+            .nr1-risk-split { grid-template-columns: 1fr; }
+            .nr1-risk-left { min-height: auto; }
+        }
+
+        /* Bloco "Resultado" */
+        .nr1-result-card {
+            background: var(--color-primary-gold);
+            color: #ffffff;
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nr1-result-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            margin: 0;
+            color: #ffffff;
+            line-height: 1;
+        }
+        .nr1-result-bubble {
+            background: #ffffff;
+            color: var(--color-dark);
+            border-radius: 20px;
+            padding: 1.5rem 1.75rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            box-shadow: 0 4px 18px rgba(26, 26, 26, 0.12);
+        }
+        @media (max-width: 768px) {
+            .nr1-result-card { grid-template-columns: 1fr; text-align: center; }
+            .nr1-result-heading { font-size: 2.25rem; }
+        }
+
+        /* Grade de programas numerados 1-10 */
+        .nr1-programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem 2rem;
+            margin-top: 2.5rem;
+        }
+        .nr1-program-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+        }
+        .nr1-program-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--color-primary-gold);
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .nr1-program-label {
+            margin: 0.3rem 0 0;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: var(--color-dark);
+        }
+        .nr1-programs-footer {
+            margin-top: 2rem;
+            background: var(--color-light);
+            border-radius: 999px;
+            padding: 1rem 1.75rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--color-primary-slate);
+        }
+        @media (max-width: 700px) {
+            .nr1-programs-grid { grid-template-columns: 1fr; gap: 1rem; }
+        }
+
+        /* Lista de bullets com barra lateral (slide "Quanto custa") */
+        .nr1-cost-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .nr1-cost-list li {
+            border-left: 4px solid var(--color-primary-gold);
+            padding-left: 1.25rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: var(--color-dark);
+        }
+        .nr1-cost-list li strong { font-weight: 700; }
+        .nr1-cost-closing {
+            margin-top: 2rem;
+            background: var(--color-light);
+            border-radius: 999px;
+            padding: 1rem 1.75rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+
+        /* Lista de vantagens com check pill (slide "Vantagens") */
+        .nr1-advantages {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .nr1-advantages-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary-gold);
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin: 0;
+        }
+        .nr1-advantages-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .nr1-advantages-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-size: 1.05rem;
+            color: var(--color-dark);
+        }
+        .nr1-check-pill {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--color-primary-gold);
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .nr1-advantages-closing {
+            grid-column: 1 / -1;
+            margin-top: 2rem;
+            background: var(--color-light);
+            border-radius: 999px;
+            padding: 1rem 1.75rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+        @media (max-width: 768px) {
+            .nr1-advantages { grid-template-columns: 1fr; gap: 1.75rem; }
+            .nr1-advantages-title { font-size: 1.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-root"></div>
+    <div id="page-hero-root"></div>
+
+    <!-- ── Quem sou eu? (Slide 2) ──────────────────────────────────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner">
+            <p class="section-kicker">Quem sou eu</p>
+            <h2 class="section-heading">Implementadora certificada da NR-1</h2>
+
+            <div class="nr1-three-col">
+                <div class="nr1-three-col-item">
+                    <p class="bio-text">
+                        Sou <strong>Lígia Flauzino</strong>, certificada pelo MEC em implementação NR-1 e pós-graduada em Desenvolvimento Humano, Neurociências e Psicologia Positiva.
+                    </p>
+                </div>
+                <div class="nr1-three-col-item">
+                    <p class="bio-text">
+                        Atuo como <strong>Implementadora da NR-1</strong>, ajudando empresas a se adequarem à nova regulamentação e garantirem um ambiente de trabalho mais seguro e produtivo.
+                    </p>
+                </div>
+                <div class="nr1-three-col-item">
+                    <p class="bio-text">
+                        Minha missão é transformar a forma como as empresas cuidam da saúde mental dos colaboradores, prevenindo riscos psicossociais e aumentando a produtividade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── A atualização da NR-1 já é notícia (Slide 3) ───────────── -->
+    <section class="content-section" style="background:var(--color-secondary-cream);">
+        <div class="section-inner">
+            <div class="nr1-news-wrapper">
+                <div>
+                    <p class="section-kicker">Repercussão nacional</p>
+                    <h2 class="section-heading" style="margin-bottom:1rem;">
+                        A atualização da NR-1 já é notícia em todo país.
+                    </h2>
+                    <p class="bio-text">
+                        Empresas precisam se adaptar com agilidade e garantir a aplicação de programas de diagnóstico e prevenção de riscos psicossociais.
+                    </p>
+                </div>
+
+                <div class="nr1-news-grid reveal-on-scroll">
+                    <article class="nr1-news-card">
+                        <p class="nr1-news-source">Forbes</p>
+                        <p class="nr1-news-headline">Crise de Saúde Mental no Brasil: Empresas Terão Que Adotar Medidas de Prevenção</p>
+                        <p class="nr1-news-meta">País teve o maior número de afastamentos por transtornos mentais em 10 anos; atualização da NR-1 exigirá que companhias acompanhem e protejam o bem-estar psicológico dos funcionários.</p>
+                    </article>
+                    <article class="nr1-news-card">
+                        <p class="nr1-news-source">Ministério do Trabalho e Emprego</p>
+                        <p class="nr1-news-headline">Empresas brasileiras terão que avaliar riscos psicossociais a partir de 2025</p>
+                        <p class="nr1-news-meta">Atualização da NR-1 reforça a gestão de segurança e saúde no trabalho.</p>
+                    </article>
+                    <article class="nr1-news-card">
+                        <p class="nr1-news-source">UOL — Economia</p>
+                        <p class="nr1-news-headline">Saúde mental vira obrigação para empresas em maio: o que muda com a norma?</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Dados que comprovam (Slide 4) ──────────────────────────── -->
+    <section class="content-section" style="background:var(--color-primary-gold); color:#fff;">
+        <div class="section-inner" style="max-width:920px;">
+            <p class="section-kicker" style="color:#fff; opacity:0.85;">Cenário atual</p>
+            <h2 class="section-heading" style="color:#fff;">
+                Dados que comprovam a necessidade da implementação
+            </h2>
+
+            <div class="nr1-stats-grid reveal-on-scroll">
+                <div class="nr1-stat-card">
+                    <p class="nr1-stat-title">Brasil bate recorde de afastamentos por transtornos mentais</p>
+                    <p class="nr1-stat-body">472.328 licenças médicas concedidas em 2024 (+68% em relação ao ano anterior).</p>
+                    <p class="nr1-stat-source">Fonte: Ministério da Previdência Social — gov.br/previdencia/pt-br e g1.globo.com/trabalho-e-carreira (10/03/2025)</p>
+                </div>
+                <div class="nr1-stat-card">
+                    <p class="nr1-stat-title">Impacto financeiro</p>
+                    <p class="nr1-stat-body">Empresas perdem bilhões anualmente devido ao absenteísmo, presenteísmo e ações trabalhistas relacionadas à saúde mental.</p>
+                </div>
+                <div class="nr1-stat-card">
+                    <p class="nr1-stat-title">O governo já determinou medidas mais rígidas</p>
+                    <p class="nr1-stat-body">A partir de maio, as empresas precisarão identificar e gerenciar riscos psicossociais, ou poderão sofrer multas severas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── O que isso significa para sua empresa? (Slide 5) ───────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner" style="max-width:860px;">
+            <p class="section-kicker">Impacto direto</p>
+            <h2 class="section-heading">O que isso significa para sua empresa?</h2>
+
+            <div class="nr1-duo-grid">
+                <div class="nr1-duo-card">
+                    <span class="nr1-duo-icon" aria-hidden="true">🚨</span>
+                    <p>Sem uma implementação estruturada, você pode ser fiscalizado e multado!</p>
+                </div>
+                <div class="nr1-duo-card is-success">
+                    <span class="nr1-duo-icon" aria-hidden="true">✅</span>
+                    <p>Empresas que se adiantam evitam prejuízos e fortalecem sua reputação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Atenção, empregador! A NR-1 agora obriga: (Slide 6) ────── -->
+    <section class="content-section" style="background:var(--color-secondary-cream);">
+        <div class="section-inner" style="max-width:860px;">
+            <p class="section-kicker">Atenção, empregador</p>
+            <h2 class="section-heading">A NR-1 agora obriga:</h2>
+
+            <ul class="check-list reveal-on-scroll">
+                <li>Identificação e monitoramento contínuo dos riscos psicossociais.</li>
+                <li>Criação de programas preventivos para evitar doenças ocupacionais.</li>
+                <li>Implementação de ações concretas para reduzir o impacto da saúde mental no trabalho.</li>
+                <li>Medidas eficazes contra assédio moral e psicológico no ambiente de trabalho.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── Riscos para quem não se adequar (Slide 7) ──────────────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner">
+            <div class="nr1-risk-split">
+                <div class="nr1-risk-left">
+                    <span class="nr1-risk-icon" aria-hidden="true">🚨</span>
+                    <h3 class="nr1-risk-title">Riscos para quem não se adequar</h3>
+                </div>
+                <div class="nr1-risk-right">
+                    <div class="nr1-risk-item">
+                        <strong>Multas de até <span class="nr1-risk-amount">R$ 181.284,63</span></strong>
+                        <p class="nr1-risk-source">Fonte: SOC — soc.com.br/blog-de-sst/multas-do-esocial-sst</p>
+                    </div>
+                    <div class="nr1-risk-item">
+                        <strong>Processos trabalhistas</strong>
+                    </div>
+                    <div class="nr1-risk-item">
+                        <strong>Prejuízos na produtividade e alta rotatividade de colaboradores</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Plano de ação completo (Slide 8) ───────────────────────── -->
+    <section class="content-section" style="background:var(--color-secondary-cream); padding-bottom:0;">
+        <div class="section-inner">
+            <p class="section-kicker">Como vamos atuar</p>
+            <h2 class="section-heading">Plano de ação completo para adequação da sua empresa</h2>
+        </div>
+        <div class="section-inner" id="steps-root" style="padding-top:0; padding-bottom:5rem;"></div>
+    </section>
+
+    <!-- ── Nossa proposta inclui (Slide 9) ────────────────────────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner" style="max-width:860px;">
+            <p class="section-kicker">O que está incluído</p>
+            <h2 class="section-heading">Nossa proposta inclui</h2>
+
+            <ul class="check-list reveal-on-scroll">
+                <li><strong>Diagnóstico completo dos riscos psicossociais (GRO)</strong></li>
+                <li><strong>Aplicação de programas preventivos e corretivos</strong></li>
+                <li><strong>Relatórios com indicadores de saúde mental e produtividade</strong></li>
+                <li><strong>Assessoria para gestores e equipe de RH</strong></li>
+                <li><strong>Conformidade garantida com a NR-1 e outras NRs relacionadas (05, 09, 17, 33 e 35)</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── Resultado (Slide 10) ───────────────────────────────────── -->
+    <section class="content-section" style="background:var(--color-secondary-cream);">
+        <div class="section-inner">
+            <div class="nr1-result-card reveal-on-scroll">
+                <h2 class="nr1-result-heading">Resultado</h2>
+                <p class="nr1-result-bubble">
+                    Sua empresa se mantém em conformidade com a legislação, melhora o clima organizacional e reduz prejuízos com afastamentos e processos trabalhistas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Programas estratégicos (Slide 11) ──────────────────────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner">
+            <p class="section-kicker">Programas estratégicos</p>
+            <h2 class="section-heading">Sua empresa terá acesso a programas como:</h2>
+
+            <ol class="nr1-programs-grid reveal-on-scroll">
+                <li class="nr1-program-item"><span class="nr1-program-num">1</span><p class="nr1-program-label">Gestão do Estresse e Prevenção da Síndrome de Burnout</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">2</span><p class="nr1-program-label">Saúde Mental e Clima Organizacional</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">3</span><p class="nr1-program-label">Psicologia Positiva no Trabalho</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">4</span><p class="nr1-program-label">Prevenção e Manejo da Ansiedade no Trabalho</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">5</span><p class="nr1-program-label">Inteligência Emocional para Lideranças</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">6</span><p class="nr1-program-label">Equilíbrio entre Vida Profissional e Pessoal</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">7</span><p class="nr1-program-label">Prevenção ao Assédio Moral e Psicológico</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">8</span><p class="nr1-program-label">Apoio Psicológico dentro da Empresa</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">9</span><p class="nr1-program-label">Avaliação Psicológica para Recrutamento e Seleção</p></li>
+                <li class="nr1-program-item"><span class="nr1-program-num">10</span><p class="nr1-program-label">Avaliação Psicossocial para Atividades de Risco</p></li>
+            </ol>
+
+            <p class="nr1-programs-footer">Cada programa será adaptado às necessidades específicas da sua empresa!</p>
+        </div>
+    </section>
+
+    <!-- ── Quanto custa um processo trabalhista (Slide 12) ────────── -->
+    <section class="content-section" style="background:var(--color-secondary-cream);">
+        <div class="section-inner" style="max-width:860px;">
+            <p class="section-kicker">O custo da inação</p>
+            <h2 class="section-heading">Quanto custa um processo trabalhista por negligência com saúde mental?</h2>
+
+            <ul class="nr1-cost-list reveal-on-scroll">
+                <li>Multas variando de <strong>R$ 1.812,87 a R$ 181.284,63</strong></li>
+                <li>Indenizações por danos morais entre <strong>R$ 10.000 e R$ 500.000</strong></li>
+                <li>Impacto na imagem da empresa, dificultando recrutamento e retenção de talentos</li>
+            </ul>
+
+            <p class="nr1-cost-closing">Investir na implementação da NR-1 não é custo, é proteção e valorização da sua empresa!</p>
+        </div>
+    </section>
+
+    <!-- ── Vantagens de implementar a NR-1 agora (Slide 13) ───────── -->
+    <section class="content-section" style="background:var(--color-light);">
+        <div class="section-inner">
+            <div class="nr1-advantages reveal-on-scroll">
+                <h2 class="nr1-advantages-title">Vantagens de implementar a NR-1 agora</h2>
+
+                <ul class="nr1-advantages-list">
+                    <li><span class="nr1-check-pill" aria-hidden="true">✓</span>Evita multas e processos trabalhistas</li>
+                    <li><span class="nr1-check-pill" aria-hidden="true">✓</span>Melhora o clima organizacional e reduz turnover</li>
+                    <li><span class="nr1-check-pill" aria-hidden="true">✓</span>Aumenta a produtividade dos colaboradores</li>
+                    <li><span class="nr1-check-pill" aria-hidden="true">✓</span>Torna a empresa referência em bem-estar corporativo</li>
+                    <li><span class="nr1-check-pill" aria-hidden="true">✓</span>Demonstra responsabilidade social e corporativa</li>
+                </ul>
+
+                <p class="nr1-advantages-closing">Quanto antes sua empresa agir, menos riscos corre!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA Final (Slide 14) ───────────────────────────────────── -->
+    <div id="cta-section-root"></div>
+
+    <div id="footer-root"></div>
+
+    <script src="../components.js"></script>
+    <script type="module">
+        import { initPageHeroAnimation, initScrollReveals, initCardStagger, initWhatsAppFloat } from '../animations.js';
+
+        renderPageHero({
+            badge: 'NR-1 para Empresas',
+            title: 'Mapeamento e Implementação de Riscos Psicossociais',
+            subtitle: 'Adeque sua empresa à nova NR-1 com diagnóstico, implementação e monitoramento conduzidos por uma Implementadora certificada pelo MEC.',
+            ctaLabel: 'Quero adequar minha empresa',
+            ctaHref: 'https://wa.me/5521968791867?text=Ol%C3%A1%20L%C3%ADgia%2C%20gostaria%20de%20adequar%20minha%20empresa%20%C3%A0%20NR-1.',
+        });
+
+        renderSteps([
+            {
+                title: '1. Diagnóstico dos Riscos Psicossociais (DRPS)',
+                desc: 'Aplicação de escalas para avaliação do clima organizacional, estresse ocupacional, assédio e comprometimento. Relatórios estratégicos para a empresa.',
+            },
+            {
+                title: '2. Plano de Implementação e Monitoramento',
+                desc: 'Desenvolvimento de programas contínuos para garantir conformidade. Aplicação de intervenções personalizadas.',
+            },
+            {
+                title: '3. Entrega de Relatórios e Evidências',
+                desc: 'Documentação da implementação para comprovar a adequação à NR-1.',
+            },
+        ]);
+
+        renderCTASection({
+            headline: 'Agora que você já sabe a importância da NR-1, vamos agir!',
+            body: 'Ofereço um pacote completo para adequação da sua empresa com total suporte e implementação prática. Vamos agendar uma conversa para estruturar a implementação ideal para seu negócio? A fiscalização começa em maio — não corra riscos.',
+            primaryLabel: 'Entrar em contato agora',
+            primaryHref: 'https://wa.me/5521968791867?text=Ol%C3%A1%20L%C3%ADgia%2C%20gostaria%20de%20conversar%20sobre%20a%20adequa%C3%A7%C3%A3o%20da%20minha%20empresa%20%C3%A0%20NR-1.',
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initPageHeroAnimation();
+            initScrollReveals();
+            initCardStagger('.steps-grid', 100);
+            initCardStagger('.nr1-stats-grid', 100);
+            initCardStagger('.nr1-news-grid', 100);
+            initWhatsAppFloat();
+        });
+    </script>
+</body>
+</html>
